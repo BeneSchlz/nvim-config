@@ -998,6 +998,12 @@ require("lazy").setup({
 	--  Here are some example plugins that I've included in the Kickstart repository.
 	--  Uncomment any of the lines below to enable them (you will need to restart nvim).
 	--
+	--
+	-- Added VimBeGood to learn motions
+	{
+		"ThePrimeagen/vim-be-good",
+	},
+	--
 	require("kickstart.plugins.debug"),
 	--require("kickstart.plugins.indent_line"),
 	require("kickstart.plugins.lint"),
@@ -1036,6 +1042,14 @@ require("lazy").setup({
 		},
 	},
 })
-
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "go",
+	callback = function()
+		vim.opt.shiftwidth = 4
+		vim.opt.tabstop = 4
+		vim.opt.softtabstop = 4
+		vim.opt.expandtab = false
+	end,
+})
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
