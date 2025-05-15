@@ -903,6 +903,10 @@ require("lazy").setup({
 			-- Like many other themes, this one has different styles, and you could load
 			-- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
 			vim.cmd.colorscheme("tokyonight-night")
+			-- Added more visible relative line numbers
+			vim.api.nvim_set_hl(0, "LineNr", { fg = "#aaaaaa" })
+			vim.api.nvim_set_hl(0, "LineNrAbove", { fg = "#aaaaaa" })
+			vim.api.nvim_set_hl(0, "LineNrBelow", { fg = "#aaaaaa" })
 		end,
 	},
 
@@ -1004,8 +1008,15 @@ require("lazy").setup({
 		"ThePrimeagen/vim-be-good",
 	},
 
+	-- Scroll down half a screen and center the cursor
 	vim.keymap.set("n", "<C-d>", "<C-d>zz", { noremap = true, silent = true }),
+	-- Scroll up half a screen and center the cursor
 	vim.keymap.set("n", "<C-u>", "<C-u>zz", { noremap = true, silent = true }),
+
+	-- Jump to next search result, center the screen, and open folds if needed
+	vim.keymap.set("n", "n", "nzzzv", { noremap = true, silent = true }),
+	-- Jump to previous search result, center the screen, and open folds if needed
+	vim.keymap.set("n", "N", "Nzzzv", { noremap = true, silent = true }),
 	--
 	require("kickstart.plugins.debug"),
 	--require("kickstart.plugins.indent_line"),
