@@ -904,9 +904,9 @@ require("lazy").setup({
 			-- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
 			vim.cmd.colorscheme("tokyonight-night")
 			-- Added more visible relative line numbers
-			vim.api.nvim_set_hl(0, "LineNr", { fg = "#aaaaaa" })
-			vim.api.nvim_set_hl(0, "LineNrAbove", { fg = "#aaaaaa" })
-			vim.api.nvim_set_hl(0, "LineNrBelow", { fg = "#aaaaaa" })
+			vim.api.nvim_set_hl(0, "LineNr", { fg = "#a9b1d6" })
+			vim.api.nvim_set_hl(0, "LineNrAbove", { fg = "#a9b1d6" })
+			vim.api.nvim_set_hl(0, "LineNrBelow", { fg = "#a9b1d6" })
 		end,
 	},
 
