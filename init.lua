@@ -675,8 +675,8 @@ require("lazy").setup({
 			--        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
 			local servers = {
 				-- clangd = {},
-				-- gopls = {},
-				-- pyright = {},
+				gopls = {},
+				pyright = {},
 				-- rust_analyzer = {},
 				-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
 				--
@@ -894,6 +894,7 @@ require("lazy").setup({
 		config = function()
 			---@diagnostic disable-next-line: missing-fields
 			require("tokyonight").setup({
+				transparent = true,
 				styles = {
 					comments = { italic = false }, -- Disable italics in comments
 				},
@@ -1002,11 +1003,19 @@ require("lazy").setup({
 	--  Here are some example plugins that I've included in the Kickstart repository.
 	--  Uncomment any of the lines below to enable them (you will need to restart nvim).
 	--
-	--
 	-- Added VimBeGood to learn motions
 	{
 		"ThePrimeagen/vim-be-good",
-	},
+	}, --
+	--
+	require("kickstart.plugins.debug"),
+	--require("kickstart.plugins.indent_line"),
+	require("kickstart.plugins.lint"),
+	require("kickstart.plugins.autopairs"),
+	require("kickstart.plugins.neo-tree"),
+	require("kickstart.plugins.gitsigns"),
+	require("kickstart.plugins.harpoon"),
+	--require("kickstart.plugins.hardtime"),
 
 	-- Scroll down half a screen and center the cursor
 	vim.keymap.set("n", "<C-d>", "<C-d>zz", { noremap = true, silent = true }),
@@ -1018,12 +1027,6 @@ require("lazy").setup({
 	-- Jump to previous search result, center the screen, and open folds if needed
 	vim.keymap.set("n", "N", "Nzzzv", { noremap = true, silent = true }),
 	--
-	require("kickstart.plugins.debug"),
-	--require("kickstart.plugins.indent_line"),
-	require("kickstart.plugins.lint"),
-	require("kickstart.plugins.autopairs"),
-	require("kickstart.plugins.neo-tree"),
-	require("kickstart.plugins.gitsigns"), -- adds gitsigns recommend keymaps
 
 	-- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
 	--    This is the easiest way to modularize your config.
