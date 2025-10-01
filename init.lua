@@ -817,6 +817,10 @@ require("lazy").setup({
 		--- @type blink.cmp.Config
 		opts = {
 			keymap = {
+				["<Tab>"] = { "select_and_accept", "fallback" },
+				["<C-p>"] = { "select_prev", "fallback_to_mappings" },
+				["<C-n>"] = { "select_next", "fallback_to_mappings" },
+
 				-- 'default' (recommended) for mappings similar to built-in completions
 				--   <c-y> to accept ([y]es) the completion.
 				--    This will auto-import if your LSP supports it.
@@ -1015,8 +1019,10 @@ require("lazy").setup({
 	require("kickstart.plugins.neo-tree"),
 	require("kickstart.plugins.gitsigns"),
 	require("kickstart.plugins.harpoon"),
+	require("kickstart.plugins.obsidian"),
+	require("kickstart.plugins.marks"),
 	--require("kickstart.plugins.hardtime"),
-
+	--
 	-- Scroll down half a screen and center the cursor
 	vim.keymap.set("n", "<C-d>", "<C-d>zz", { noremap = true, silent = true }),
 	-- Scroll up half a screen and center the cursor
@@ -1068,5 +1074,36 @@ vim.api.nvim_create_autocmd("FileType", {
 		vim.opt.expandtab = false
 	end,
 })
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "lua",
+	callback = function()
+		vim.opt_local.shiftwidth = 2
+		vim.opt_local.tabstop = 2
+		vim.opt_local.softtabstop = 2
+		vim.opt_local.expandtab = true
+	end,
+})
+
+vim.api.nvim_create_user_command("NewNote", function(opts)
+	local title = opts.args
+	if title == "" then
+		title = vim.fn.input("Note title: ")
+	end
+
+	if title ~= "" then
+		-- Simple approach: create file directly
+		local filename = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-_]", ""):lower() .. ".md"
+		local vault_path = vim.fn.expand("~/vault_obsidian/") -- or your preferred default
+		local filepath = vault_path .. filename
+
+		vim.cmd("edit " .. filepath)
+	end
+end, {
+	nargs = "?",
+	desc = "Create new note in vault",
+})
+
+vim.opt.mouse = ""
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
